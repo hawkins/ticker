@@ -14,7 +14,7 @@ import board
 from adafruit_matrixportal.network import Network
 
 from secrets import secrets
-network = Network(status_neopixel=board.NEOPIXEL)
+
 
 def refresh_trains() -> [dict]:
     try:
@@ -25,9 +25,9 @@ def refresh_trains() -> [dict]:
         return None
 
 
-train_board = TrainBoard(refresh_trains)
-
-while True:
-    train_board.refresh()
-    time.sleep(REFRESH_INTERVAL)
-    clone.clone_code_file(network)
+def main(network):
+    train_board = TrainBoard(refresh_trains)
+    while True:
+        train_board.refresh()
+        time.sleep(REFRESH_INTERVAL)
+        clone.clone_code_file(network)
