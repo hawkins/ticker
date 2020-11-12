@@ -9,10 +9,17 @@ STATION_CODE = config["metro_station_code"]
 TRAIN_GROUP = config["train_group"]
 REFRESH_INTERVAL = config["refresh_interval"]
 
+import clone
+import board
+from adafruit_matrixportal.network import Network
+
+from secrets import secrets
+network = Network(status_neopixel=board.NEOPIXEL)
 
 def refresh_trains() -> [dict]:
     try:
-        return MetroApi.fetch_train_predictions(STATION_CODE, TRAIN_GROUP)
+        api = MetroApi(network)
+        return api.fetch_train_predictions(STATION_CODE, TRAIN_GROUP)
     except MetroApiOnFireException:
         print("WMATA Api is currently on fire. Trying again later ...")
         return None
@@ -23,3 +30,4 @@ train_board = TrainBoard(refresh_trains)
 while True:
     train_board.refresh()
     time.sleep(REFRESH_INTERVAL)
+    clone.clone_code_file(network)
