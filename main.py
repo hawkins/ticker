@@ -26,7 +26,7 @@ def clone_code_file(network, user, repo, branch):
 
 portable = None
 while not portable:
-    clone_code_file(network)
+    clone_code_file(network, config['user'], config['repo'], config['branch'])
     try:
         import portable as p
     except Exception as e:
