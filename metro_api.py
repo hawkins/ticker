@@ -8,10 +8,10 @@ class MetroApi:
     def __init__(self, network):
         self.network = network
 
-    def fetch_train_predictions(self, station_code: str, group: str) -> [dict]:
-        return self._fetch_train_predictions(station_code, group, retry_attempt=0)
+    def fetch_train_predictions(self, station_code: str) -> [dict]:
+        return self._fetch_train_predictions(station_code, retry_attempt=0)
 
-    def _fetch_train_predictions(self, station_code: str, group: str, retry_attempt: int) -> [dict]:
+    def _fetch_train_predictions(self, station_code: str, retry_attempt: int) -> [dict]:
         try:
             api_url = config['metro_api_url'] + station_code
             train_data = self.network.fetch(api_url, headers={
@@ -19,8 +19,8 @@ class MetroApi:
             }).json()
 
             print('Received response from WMATA api...')
-
-            trains = filter(lambda t: t['Group'] == group, train_data['Trains'])
+            trains = train_data['Trains']
+            print(trains)
 
             normalized_results = list(map(self._normalize_train_response, trains))
 

@@ -9,7 +9,7 @@ REFRESH_INTERVAL = config["refresh_interval"]
 
 
 def main(network):
-    def refresh_trains(network) -> [dict]:
+    def refresh_trains() -> [dict]:
         try:
             api = MetroApi(network)
             return api.fetch_train_predictions(STATION_CODE)

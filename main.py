@@ -24,13 +24,13 @@ def clone_code_file(network, user, repo, branch):
         print("Failure")
 
 
-portable = None
-while not portable:
-    clone_code_file(network, config['user'], config['repo'], config['branch'])
+p = None
+while not p:
+    #clone_code_file(network, config['user'], config['repo'], config['branch'])
     try:
         import portable as p
     except Exception as e:
         print(e)
         time.sleep(10)
 
-p.main()
+p.main(network)
