@@ -33,4 +33,8 @@ while not p:
         print(e)
         time.sleep(10)
 
-p.main(network)
+while True:
+    try:
+        p.main(network)
+    except Exception:
+        pass
